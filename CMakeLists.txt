@@ -24,56 +24,56 @@ find_package(example_interfaces REQUIRED)
 
 include_directories(include)
 
-add_library(talker_component SHARED
+add_library(manual_talker_component SHARED
   src/publisher.cpp)
   
-add_library(listener_component SHARED
+add_library(manual_listener_component SHARED
   src/subscriber.cpp)
 
-add_library(server_component SHARED
+add_library(manual_server_component SHARED
   src/server.cpp)
 
-add_library(client_component SHARED
+add_library(manual_client_component SHARED
   src/client.cpp)
 
   
-rclcpp_components_register_node(talker_component
+rclcpp_components_register_node(manual_talker_component
   PLUGIN "manual_composition_package::MinimalPublisher"
   EXECUTABLE comp_publisher)
   
-rclcpp_components_register_node(listener_component
+rclcpp_components_register_node(manual_listener_component
   PLUGIN "manual_composition_package::MinimalSubscriber"
   EXECUTABLE comp_subscriber)
   
-rclcpp_components_register_node(server_component
+rclcpp_components_register_node(manual_server_component
   PLUGIN "manual_composition_package::MinimalServer"
   EXECUTABLE comp_server)
   
-rclcpp_components_register_node(client_component
+rclcpp_components_register_node(manual_client_component
   PLUGIN "manual_composition_package::MinimalClient"
   EXECUTABLE comp_client)
   
-ament_target_dependencies(talker_component rclcpp rclcpp_components std_msgs)
-ament_target_dependencies(listener_component rclcpp rclcpp_components std_msgs)
-ament_target_dependencies(server_component rclcpp rclcpp_components example_interfaces)
-ament_target_dependencies(client_component rclcpp rclcpp_components example_interfaces)
+ament_target_dependencies(manual_talker_component rclcpp rclcpp_components std_msgs)
+ament_target_dependencies(manual_listener_component rclcpp rclcpp_components std_msgs)
+ament_target_dependencies(manual_server_component rclcpp rclcpp_components example_interfaces)
+ament_target_dependencies(manual_client_component rclcpp rclcpp_components example_interfaces)
 
 add_executable(manual_composition
   src/m_composition.cpp)
   
 target_link_libraries(manual_composition
-  talker_component
-  listener_component
-  client_component
-  server_component)
+  manual_talker_component
+  manual_listener_component
+  manual_client_component
+  manual_server_component)
   
 ament_target_dependencies(manual_composition rclcpp rclcpp_components std_msgs example_interfaces)
 
 install(TARGETS
-   talker_component
-   listener_component
-   server_component
-   client_component
+   manual_talker_component
+   manual_listener_component
+   manual_server_component
+   manual_client_component
    manual_composition
   DESTINATION lib/${PROJECT_NAME}
   LIBRARY DESTINATION lib)
